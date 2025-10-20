@@ -25,7 +25,6 @@ export const getAnalyticsData = async () => {
             totalRevenue,
         }
     } catch (error) {
-        console.log("Error in getAnalyticsData:", error.message);
         throw error;
     }
 }

@@ -27,14 +27,17 @@ export const CategoryPage = () => {
           initial={{opacity:0,y:20}}
           animate={{opacity:1,y:0}}
           transition={{duration:0.8,delay:0.2}}>
-            {products?.length===0&&(
+            {loading ? (
+              <h2 className='text-2xl font-semibold text-gray-400 text-center col-span-full'>
+                Loading products...
+              </h2>
+            ) : products?.length === 0 ? (
               <h2 className='text-3xl font-semibold text-gray-300 text-center col-span-full'>
                 No products found
               </h2>
+            ) : (
+              products?.map((p) => <ProductCard key={p._id} product={p} />)
             )}
-            {products?.map((p) => (
-              <ProductCard key={p._id} product={p} />
-            ))}
         </motion.div>
       </div>
     </div>

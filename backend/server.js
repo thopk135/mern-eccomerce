@@ -10,6 +10,7 @@ import paymentRoutes from './routes/payment.route.js';
 import analyticsRoutes from './routes/analytics.route.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import chatsRoutes from './routes/chats.route.js';
 
 dotenv.config();
 const app = express();
@@ -28,6 +29,7 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/coupon', couponRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/analytics', analyticsRoutes);
+app.use('/api/chats', chatsRoutes);
 
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, "../frontend/dist"))); 

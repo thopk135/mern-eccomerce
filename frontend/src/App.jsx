@@ -13,6 +13,7 @@ import { CartPage } from './pages/CartPage.jsx'
 import { useCartStore } from './stores/useCartStore.js'
 import { PurchaseSuccessPage } from './pages/PurchaseSuccessPage.jsx'
 import { PurchaseCancelPage } from './pages/PurchaseCancelPage.jsx'
+import ChatBox from './components/ChatBox.jsx'
 
 function App() {
   const { user, checkAuth, checkingAuth } = useUserStore();
@@ -71,6 +72,7 @@ function App() {
               (<Navigate to="/login" state={{ from: location.pathname + location.search }} />)}
             />
           </Routes>
+          <ChatBox />
         </div>
         <Toaster />
       </div>

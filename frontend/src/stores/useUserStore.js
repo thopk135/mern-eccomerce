@@ -39,11 +39,7 @@ export const useUserStore = create ((set,get) => ({
             set({ loading: false });
         }
     },
-    logout: async (confirm=true) => {
-        if(confirm){
-            const confirmLogout = window.confirm("Do you want to log out?");
-            if (!confirmLogout) return;
-        }
+    logout: async () => {
         set({ loading: true });
         try {
             const response = await axiosInstance.post("/auth/logout");

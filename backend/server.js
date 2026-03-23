@@ -38,6 +38,13 @@ if(process.env.NODE_ENV === 'production') {
     });
 }
 
-app.listen(PORT, () => {
-    connectMongoB();
+app.listen(PORT, async () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+
+    try {
+        await connectMongoB();
+        console.log("✅ MongoDB connected");
+    } catch (error) {
+        console.error("❌ MongoDB connection error:", error.message);
+    }
 });

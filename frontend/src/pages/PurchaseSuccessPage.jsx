@@ -1,25 +1,34 @@
 import { ArrowRight, CheckCircle, HandHeart } from 'lucide-react'
-import React, { use, useEffect, useState } from 'react'
+import {useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useCartStore } from '../stores/useCartStore.js';
 import axiosInstance from '../lib/axios.js';
 import Confetti from 'react-confetti'
+import { useRef } from 'react';
+
 
 export const PurchaseSuccessPage = () => {
     const [isProcessing, setIsProcessing] = useState(true);
     const {clearCart} = useCartStore();
     const [error,setError] = useState(null);
+    const called = useRef(false);
     useEffect(()=> {
         const handleCheckoutSuccess = async (sessionId) => {
+            if (called.current) return;
+            called.current = true;
             try {
-                console.log("sessionId",sessionId);
-                console.log(axiosInstance)
-                await axiosInstance.post('/payment/checkout-success',{sessionId});
+                console.log("sessionId", sessionId);
+                await axiosInstance.post(
+                  '/payment/checkout-success',
+                  { sessionId },
+                  { withCredentials: true }
+                );
                 clearCart();
             } catch (error) {
-                console.log(error)
+                console.log(error);
+                setError(error?.response?.data?.message || 'Checkout failed');
             } finally {
-                setIsProcessing(false)
+                setIsProcessing(false);
             }
         }
         const sessionId = new URLSearchParams(window.location.search).get('session_id')
@@ -32,7 +41,6 @@ export const PurchaseSuccessPage = () => {
     },[clearCart])
 
     if(isProcessing) return "Processing...";
-    if(error) return `Error: ${error}`;
   return (
     <div className="h-screen flex items-center justify-center px-4">
 

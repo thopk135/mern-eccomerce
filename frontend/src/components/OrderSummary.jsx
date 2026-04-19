@@ -33,7 +33,10 @@ export const OrderSummary = () => {
       }
 
     } catch (error) {
-      toast.error("Fail to creat proceed to checkout")
+      const message =
+        error.response?.data?.message || "Fail to proceed to checkout";
+
+      toast.error(message);
     }
   }
   return (

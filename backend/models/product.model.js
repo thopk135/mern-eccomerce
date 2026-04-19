@@ -25,6 +25,11 @@ const productSchema = new mongoose.Schema({
     isFeatured: {
         type: Boolean,
         default: false
+    },
+    quantity: {
+        type: Number,
+        required: true,
+        min: 0
     }
 
 }, { timestamps: true });
